@@ -1,0 +1,38 @@
+% Fig. 2: self-similar profiles on the finest grid (N = 1920).
+% Data: ../code/out/lam36_N1920.dat and ../code/out/lam2.5_N1920.dat
+% (produced by ../code/selfsimilar_imbibition.py or code/sensitivity_lambda.py).
+% Compile with pdflatex, then  pdftops -eps Fig2_profiles.pdf Fig2.eps
+\documentclass[border=2pt]{standalone}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\usepgfplotslibrary{groupplots}
+\pgfplotsset{compat=1.18}
+\begin{document}
+\begin{tikzpicture}
+\begin{groupplot}[
+  group style={group size=2 by 1, horizontal sep=0.9cm, y descriptions at=edge left},
+  width=7.2cm, height=5.4cm,
+  xmin=0, xmax=6, ymin=-0.03, ymax=1.05,
+  xlabel={Self-similar variable $\xi=x/\sqrt{\alpha^2 t}$},
+  grid=major, grid style={gray!25},
+  tick label style={font=\footnotesize}, label style={font=\small},
+  title style={font=\small},
+  table/comment chars={\#},
+]
+\nextgroupplot[title={(a) $\lambda=36$ W/(m\,$^\circ$C), $\varkappa/\alpha^2=25.7$},
+  ylabel={$s$,\ \ $c/c^0$,\ \ $T/T^0$}]
+\addplot[blue, thick] table[x index=0, y index=1] {../code/out/lam36_N1920.dat};
+\addplot[red, thick, dashed] table[x index=0, y index=2] {../code/out/lam36_N1920.dat};
+\addplot[black!60!green, thick, dash dot] table[x index=0, y index=3] {../code/out/lam36_N1920.dat};
+
+\nextgroupplot[title={(b) $\lambda=2.5$ W/(m\,$^\circ$C), $\varkappa/\alpha^2=1.79$},
+  legend pos=north east, legend style={font=\footnotesize, cells={anchor=west}}]
+\addplot[blue, thick] table[x index=0, y index=1] {../code/out/lam2.5_N1920.dat};
+\addlegendentry{water saturation $s$}
+\addplot[red, thick, dashed] table[x index=0, y index=2] {../code/out/lam2.5_N1920.dat};
+\addlegendentry{additive concentration $c/c^0$}
+\addplot[black!60!green, thick, dash dot] table[x index=0, y index=3] {../code/out/lam2.5_N1920.dat};
+\addlegendentry{temperature $T/T^0$}
+\end{groupplot}
+\end{tikzpicture}
+\end{document}
